@@ -8,7 +8,7 @@ buildscript {
 }
 
 allprojects {
-    group = "io.eventuate.common.messaging"
+    group = "io.eventuate.messaging.partition.management"
 }
 
 subprojects {
