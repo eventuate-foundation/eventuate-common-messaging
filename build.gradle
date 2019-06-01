@@ -8,7 +8,7 @@ buildscript {
 }
 
 allprojects {
-    group = "io.eventuate.messaging.partition.management"
+    group = "io.eventuate.common.messaging"
 }
 
 subprojects {
@@ -78,7 +78,3 @@ gradle.projectsEvaluated {
         classpath = files(subprojects.findAll { subproject -> subproject.plugins.hasPlugin(PublicModulePlugin) }.javadoc.classpath)
     }
 }
-
-
-
-
