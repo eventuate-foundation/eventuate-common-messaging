@@ -1,0 +1,2 @@
+include 'eventuate-messaging-partition-management'
+include 'eventuate-messaging-partition-management-tests'
