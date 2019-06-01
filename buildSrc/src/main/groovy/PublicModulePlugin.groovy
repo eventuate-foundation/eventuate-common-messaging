@@ -22,5 +22,6 @@ class PublicModulePlugin implements Plugin<Project> {
             archives project.javadocJar
             archives project.sourcesJar
         }
+
     }
 }
