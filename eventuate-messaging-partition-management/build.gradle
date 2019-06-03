@@ -1,12 +1,13 @@
 apply plugin: PublicModulePlugin
 
 dependencies {
+    compile "commons-lang:commons-lang:2.6"
+
     compile "org.springframework.boot:spring-boot-starter:$springBootVersion"
     compile "io.eventuate.common:eventuate-common-coordination-leadership:$eventuateCommonVersion"
 
     compile('org.apache.curator:curator-framework:2.11.0')
     compile('org.apache.curator:curator-recipes:2.11.0')
-    compile "io.eventuate.client.java:eventuate-client-java-common-impl:$eventuateClientVersion"
     compile "io.eventuate.common:eventuate-common-coordination-leadership-zookeeper:$eventuateCommonVersion"
 }
 
