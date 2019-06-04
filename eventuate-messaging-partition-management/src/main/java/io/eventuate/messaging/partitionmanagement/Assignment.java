@@ -1,4 +1,4 @@
-package io.eventuate.messaging.partition.management;
+package io.eventuate.messaging.partitionmanagement;
 
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;

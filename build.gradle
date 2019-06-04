@@ -36,6 +36,7 @@ subprojects {
         mavenCentral()
         jcenter()
         maven { url "https://repo.spring.io/milestone" }
+        maven { url "https://dl.bintray.com/eventuateio-oss/eventuate-maven-release"}
         eventuateMavenRepoUrl.split(',').each { repoUrl -> maven { url repoUrl } }
     }
 

@@ -1,4 +1,4 @@
-package io.eventuate.messaging.partition.management;
+package io.eventuate.messaging.partitionmanagement;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
