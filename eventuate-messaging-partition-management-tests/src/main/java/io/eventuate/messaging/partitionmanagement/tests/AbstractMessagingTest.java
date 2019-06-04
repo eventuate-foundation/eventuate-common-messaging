@@ -1,13 +1,11 @@
-package io.eventuate.messaging.partition.management.tests;
+package io.eventuate.messaging.partitionmanagement.tests;
 
 import com.google.common.collect.ImmutableList;
-import io.eventuate.messaging.partition.management.CommonMessageConsumer;
+import io.eventuate.messaging.partitionmanagement.CommonMessageConsumer;
 import io.eventuate.util.test.async.Eventually;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -87,9 +85,6 @@ public abstract class AbstractMessagingTest {
 
   protected Supplier<String> subscriberIdSupplier = () -> "subscriber" + System.nanoTime();
   protected Supplier<String> channelIdSupplier = () -> "channel" + System.nanoTime();
-
-  @Autowired
-  protected ApplicationContext applicationContext;
 
   protected String destination;
   protected String subscriberId;

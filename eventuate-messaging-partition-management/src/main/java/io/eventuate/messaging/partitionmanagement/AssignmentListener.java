@@ -1,4 +1,4 @@
-package io.eventuate.messaging.partition.management;
+package io.eventuate.messaging.partitionmanagement;
 
 public interface AssignmentListener {
   void remove();

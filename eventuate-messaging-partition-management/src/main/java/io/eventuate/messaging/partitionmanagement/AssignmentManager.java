@@ -1,4 +1,4 @@
-package io.eventuate.messaging.partition.management;
+package io.eventuate.messaging.partitionmanagement;
 
 public interface AssignmentManager {
   void initializeAssignment(String groupId, String memberId, Assignment assignment);

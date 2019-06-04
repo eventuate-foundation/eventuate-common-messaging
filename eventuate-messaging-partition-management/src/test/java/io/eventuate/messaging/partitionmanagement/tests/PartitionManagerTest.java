@@ -1,9 +1,9 @@
-package io.eventuate.messaging.partition.management.tests;
+package io.eventuate.messaging.partitionmanagement.tests;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
-import io.eventuate.messaging.partition.management.Assignment;
-import io.eventuate.messaging.partition.management.PartitionManager;
+import io.eventuate.messaging.partitionmanagement.Assignment;
+import io.eventuate.messaging.partitionmanagement.PartitionManager;
 import org.junit.Assert;
 import org.junit.Test;
 

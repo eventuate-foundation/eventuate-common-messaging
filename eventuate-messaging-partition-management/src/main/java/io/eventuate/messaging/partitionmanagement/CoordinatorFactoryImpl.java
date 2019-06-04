@@ -1,4 +1,4 @@
-package io.eventuate.messaging.partition.management;
+package io.eventuate.messaging.partitionmanagement;
 
 import io.eventuate.coordination.leadership.LeaderSelectorFactory;
 
