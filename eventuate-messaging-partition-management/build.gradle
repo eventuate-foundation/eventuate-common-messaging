@@ -1,7 +1,6 @@
 apply plugin: PublicModulePlugin
 
 dependencies {
-    compile "org.springframework.boot:spring-boot-starter:$springBootVersion"
     compile "io.eventuate.common:eventuate-common-coordination-leadership:$eventuateCommonVersion"
     compile "commons-lang:commons-lang:2.6"
 }
