@@ -1,5 +1,7 @@
 package io.eventuate.messaging.partitionmanagement;
 
+import io.eventuate.coordination.leadership.LeaderSelectedCallback;
+
 import java.util.Set;
 import java.util.function.Consumer;
 
@@ -9,6 +11,6 @@ public interface CoordinatorFactory {
                               String subscriptionId,
                               Consumer<Assignment> assignmentUpdatedCallback,
                               String lockId,
-                              Runnable leaderSelected,
+                              LeaderSelectedCallback leaderSelected,
                               Runnable leaderRemoved);
 }
