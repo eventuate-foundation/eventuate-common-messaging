@@ -1,5 +1,6 @@
 package io.eventuate.messaging.partitionmanagement;
 
+import io.eventuate.coordination.leadership.LeaderSelectedCallback;
 import io.eventuate.coordination.leadership.LeaderSelectorFactory;
 
 import java.util.Set;
@@ -35,7 +36,7 @@ public class CoordinatorFactoryImpl implements CoordinatorFactory {
                                      String subscriptionId,
                                      Consumer<Assignment> assignmentUpdatedCallback,
                                      String lockId,
-                                     Runnable leaderSelected,
+                                     LeaderSelectedCallback leaderSelected,
                                      Runnable leaderRemoved) {
 
     return new Coordinator(subscriptionId,
