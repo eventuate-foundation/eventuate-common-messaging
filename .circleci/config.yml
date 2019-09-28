@@ -6,12 +6,14 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: eventuate-common-{{ checksum "gradle.properties" }}
+          keys:
+            - eventuate-common-messaging-{{ checksum "gradle.properties" }}
+            - eventuate-common-messaging-
       - run: TERM=dumb ./gradlew testClasses
       - save_cache:
           paths:
             - ~/.gradle
-          key: eventuate-common-{{ checksum "gradle.properties" }}
+          key: eventuate-common-messaging-{{ checksum "gradle.properties" }}
       - run: TERM=dumb ./gradlew build
       - run:
           name: Publish artifacts
