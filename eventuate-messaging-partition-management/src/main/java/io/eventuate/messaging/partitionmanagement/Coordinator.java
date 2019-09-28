@@ -1,7 +1,9 @@
 package io.eventuate.messaging.partitionmanagement;
 
 import io.eventuate.coordination.leadership.EventuateLeaderSelector;
+import io.eventuate.coordination.leadership.LeaderSelectedCallback;
 import io.eventuate.coordination.leadership.LeaderSelectorFactory;
+import io.eventuate.coordination.leadership.LeadershipController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,7 +30,7 @@ public class Coordinator {
   private MemberGroupManager memberGroupManager;
   private PartitionManager partitionManager;
   private Set<String> previousGroupMembers;
-  private Runnable leaderSelected;
+  private LeaderSelectedCallback leaderSelected;
   private Runnable leaderRemoved;
 
   public Coordinator(String subscriptionId,
@@ -42,7 +44,7 @@ public class Coordinator {
                      LeaderSelectorFactory leaderSelectorFactory,
                      Consumer<Assignment> assignmentUpdatedCallback,
                      String lockId,
-                     Runnable leaderSelected,
+                     LeaderSelectedCallback leaderSelected,
                      Runnable leaderRemoved) {
 
     this.leaderSelected = leaderSelected;
@@ -80,8 +82,8 @@ public class Coordinator {
     }
   }
 
-  private void onLeaderSelected() {
-    leaderSelected.run();
+  private void onLeaderSelected(LeadershipController leadershipController) {
+    leaderSelected.run(leadershipController);
     partitionManager = new PartitionManager(partitionCount);
     previousGroupMembers = new HashSet<>();
     memberGroupManager = memberGroupManagerFactory.create(subscriberId, subscriptionId, Coordinator.this::onGroupMembersUpdated);
