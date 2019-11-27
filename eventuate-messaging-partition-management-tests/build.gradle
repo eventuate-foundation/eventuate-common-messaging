@@ -1,8 +1,6 @@
 apply plugin: PublicModulePlugin
 
 dependencies {
-    compile 'com.google.collections:google-collections:1.0'
-
     compile project (":eventuate-messaging-partition-management")
     compile "io.eventuate.util:eventuate-util-test:$eventuateUtilVersion"
 }
