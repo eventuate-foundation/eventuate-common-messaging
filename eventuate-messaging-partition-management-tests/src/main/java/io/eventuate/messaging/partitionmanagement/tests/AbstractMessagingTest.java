@@ -1,6 +1,5 @@
 package io.eventuate.messaging.partitionmanagement.tests;
 
-import com.google.common.collect.ImmutableList;
 import io.eventuate.messaging.partitionmanagement.CommonMessageConsumer;
 import io.eventuate.util.test.async.Eventually;
 import org.junit.Assert;
@@ -103,7 +102,7 @@ public abstract class AbstractMessagingTest {
   public void test1Consumer2Partitions() throws Exception {
     TestSubscription subscription = subscribe();
 
-    assertSubscriptionPartitionsBalanced(ImmutableList.of(subscription));
+    assertSubscriptionPartitionsBalanced(Arrays.asList(subscription));
 
     sendMessages();
 
@@ -115,11 +114,11 @@ public abstract class AbstractMessagingTest {
     TestSubscription subscription1 = subscribe();
     TestSubscription subscription2 = subscribe();
 
-    assertSubscriptionPartitionsBalanced(ImmutableList.of(subscription1, subscription2));
+    assertSubscriptionPartitionsBalanced(Arrays.asList(subscription1, subscription2));
 
     sendMessages();
 
-    assertMessagesConsumed(ImmutableList.of(subscription1, subscription2));
+    assertMessagesConsumed(Arrays.asList(subscription1, subscription2));
   }
 
 
@@ -127,7 +126,7 @@ public abstract class AbstractMessagingTest {
   public void test1Consumer2PartitionsThenAddedConsumer() {
     TestSubscription testSubscription1 = subscribe();
 
-    assertSubscriptionPartitionsBalanced(ImmutableList.of(testSubscription1));
+    assertSubscriptionPartitionsBalanced(Arrays.asList(testSubscription1));
 
     sendMessages();
 
@@ -136,11 +135,11 @@ public abstract class AbstractMessagingTest {
     testSubscription1.clearMessages();
     TestSubscription testSubscription2 = subscribe();
 
-    assertSubscriptionPartitionsBalanced(ImmutableList.of(testSubscription1, testSubscription2));
+    assertSubscriptionPartitionsBalanced(Arrays.asList(testSubscription1, testSubscription2));
 
     sendMessages();
 
-    assertMessagesConsumed(ImmutableList.of(testSubscription1, testSubscription2));
+    assertMessagesConsumed(Arrays.asList(testSubscription1, testSubscription2));
   }
 
   @Test
@@ -148,16 +147,16 @@ public abstract class AbstractMessagingTest {
     TestSubscription testSubscription1 = subscribe();
     TestSubscription testSubscription2 = subscribe();
 
-    assertSubscriptionPartitionsBalanced(ImmutableList.of(testSubscription1, testSubscription2));
+    assertSubscriptionPartitionsBalanced(Arrays.asList(testSubscription1, testSubscription2));
 
     sendMessages();
 
-    assertMessagesConsumed(ImmutableList.of(testSubscription1, testSubscription2));
+    assertMessagesConsumed(Arrays.asList(testSubscription1, testSubscription2));
 
     testSubscription1.clearMessages();
     testSubscription2.close();
 
-    assertSubscriptionPartitionsBalanced(ImmutableList.of(testSubscription1));
+    assertSubscriptionPartitionsBalanced(Arrays.asList(testSubscription1));
 
     sendMessages();
 
@@ -201,7 +200,7 @@ public abstract class AbstractMessagingTest {
   private void runReassignmentIteration() {
     TestSubscription testSubscription1 = subscribe();
 
-    assertSubscriptionPartitionsBalanced(ImmutableList.of(testSubscription1));
+    assertSubscriptionPartitionsBalanced(Arrays.asList(testSubscription1));
 
     sendMessages();
 
@@ -215,12 +214,12 @@ public abstract class AbstractMessagingTest {
     testSubscription1.clearMessages();
     TestSubscription testSubscription2 = subscribe();
 
-    assertSubscriptionPartitionsBalanced(ImmutableList.of(testSubscription1, testSubscription2));
+    assertSubscriptionPartitionsBalanced(Arrays.asList(testSubscription1, testSubscription2));
 
     sendMessages();
 
     try {
-      assertMessagesConsumed(ImmutableList.of(testSubscription1, testSubscription2));
+      assertMessagesConsumed(Arrays.asList(testSubscription1, testSubscription2));
     } finally {
       testSubscription1.close();
       testSubscription2.close();
@@ -274,7 +273,7 @@ public abstract class AbstractMessagingTest {
   }
 
   protected void assertMessagesConsumed(TestSubscription testSubscription, int messageCount) {
-    assertMessagesConsumed(ImmutableList.of(testSubscription), messageCount);
+    assertMessagesConsumed(Arrays.asList(testSubscription), messageCount);
   }
 
   protected void assertMessagesConsumed(List<TestSubscription> testSubscriptions) {
