@@ -1,16 +1,11 @@
 package io.eventuate.messaging.partitionmanagement.tests;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSet;
 import io.eventuate.messaging.partitionmanagement.Assignment;
 import io.eventuate.messaging.partitionmanagement.PartitionManager;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -39,7 +34,7 @@ public class PartitionManagerTest {
 
           Map<String, Assignment> assignments = createEmptyAssignments(initialSubscriberCount);
           partitionManager.initialize(assignments);
-          partitionManager.rebalance(createNewGroupMembersWithChannels(additionalSubscriberCount), ImmutableSet.of());
+          partitionManager.rebalance(createNewGroupMembersWithChannels(additionalSubscriberCount), Collections.emptySet());
 
           assertThatEachPartitionEncounteredOnceAndPartitionCountIsCorrect(partitionManager.getCurrentAssignments(), "channel", partitionCount);
           assertThatEachAssignmentHasCorrectPartitionCount(partitionManager.getCurrentAssignments(), "channel", partitionCount);
@@ -57,7 +52,7 @@ public class PartitionManagerTest {
 
           Map<String, Assignment> assignments = createEmptyAssignments(initialSubscriberCount);
           partitionManager.initialize(assignments);
-          partitionManager.rebalance(ImmutableMap.of(), findRemovedGroupMembers(subscribersToRemove, assignments));
+          partitionManager.rebalance(Collections.emptyMap(), findRemovedGroupMembers(subscribersToRemove, assignments));
 
           assertThatEachPartitionEncounteredOnceAndPartitionCountIsCorrect(partitionManager.getCurrentAssignments(), "channel", partitionCount);
           assertThatEachAssignmentHasCorrectPartitionCount(partitionManager.getCurrentAssignments(), "channel", partitionCount);
@@ -91,7 +86,7 @@ public class PartitionManagerTest {
             .range(0, count)
             .boxed()
             .collect(Collectors.toMap(String::valueOf,
-                    value -> new Assignment(ImmutableSet.of("channel"), new HashMap<>())));
+                    value -> new Assignment(Collections.singleton("channel"), new HashMap<>())));
   }
 
   private Map<String, Set<String>> createNewGroupMembersWithChannels(int count) {
@@ -99,7 +94,7 @@ public class PartitionManagerTest {
             .range(0, count)
             .boxed()
             .collect(Collectors.toMap(String::valueOf,
-                    value -> ImmutableSet.of("channel")));
+                    value -> Collections.singleton("channel")));
   }
 
   private Set<String> findRemovedGroupMembers(int count, Map<String, Assignment> assignments) {
