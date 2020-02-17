@@ -70,23 +70,27 @@ public class Coordinator {
 
   private void createInitialAssignments() {
     try {
+      logger.info("Creating initial assignments");
       Map<String, Set<Integer>> partitionAssignmentsByChannel = new HashMap<>();
       channels.forEach(channel -> partitionAssignmentsByChannel.put(channel, new HashSet<>()));
       Assignment assignment = new Assignment(channels, partitionAssignmentsByChannel);
 
       assignmentManager.initializeAssignment(subscriberId, subscriptionId, assignment);
 
+      logger.info("Created initial assignments");
     } catch (Exception e) {
-      logger.error(e.getMessage(), e);
+      logger.error("Creation of initial assignments failed", e);
       throw new RuntimeException(e);
     }
   }
 
   private void onLeaderSelected(LeadershipController leadershipController) {
+    logger.info("Calling onLeaderSelected");
     leaderSelected.run(leadershipController);
     partitionManager = new PartitionManager(partitionCount);
     previousGroupMembers = new HashSet<>();
     memberGroupManager = memberGroupManagerFactory.create(subscriberId, subscriptionId, Coordinator.this::onGroupMembersUpdated);
+    logger.info("Called onLeaderSelected");
   }
 
   private void onLeaderRemoved() {
