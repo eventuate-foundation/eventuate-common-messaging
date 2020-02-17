@@ -1,5 +1,7 @@
 package io.eventuate.messaging.partitionmanagement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -71,6 +73,8 @@ public class PartitionManager {
 
   Map<String, Assignment> rebalance(Map<String, Assignment> assignments) {
 
+    logger.info("Rebalancing assignments: {}", assignments);
+
     Set<AssignmentDescription> assignmentDescriptions = assignments
             .entrySet()
             .stream()
@@ -90,10 +94,14 @@ public class PartitionManager {
             .stream()
             .collect(Collectors.toMap(Map.Entry::getKey, this::groupAssignmentDescriptionsByChannel));
 
-    return assignmentDescriptionsByGroupMemberAndChannel
+    Map<String, Assignment> rebalancedAssignments = assignmentDescriptionsByGroupMemberAndChannel
             .entrySet()
             .stream()
             .collect(Collectors.toMap(Map.Entry::getKey, this::assignmentDescriptionsByChannelToAssignment));
+
+    logger.info("Rebalanced assignments: {}", rebalancedAssignments);
+
+    return rebalancedAssignments;
   }
 
   private Stream<AssignmentDescription> assignmentToAssignmentDescriptions(Map.Entry<String, Assignment> groupMemberAndAssignment) {
@@ -151,6 +159,8 @@ public class PartitionManager {
   }
 
   private Set<AssignmentDescription> rebalance(Set<AssignmentDescription> assignmentDescriptions) {
+    logger.info("Rebalancing assignment descriptions {}", assignmentDescriptions);
+
     Set<AssignmentDescription> rebalancingDescriptions = assignmentDescriptions
             .stream()
             .map(AssignmentDescription::new)
@@ -170,6 +180,8 @@ public class PartitionManager {
       minPartitionAssignment = findAssignmentDescriptionWithMinPartitions(rebalancingDescriptions);
       maxPartitionAssignment = findAssignmentDescriptionWithMaxPartitions(rebalancingDescriptions);
     }
+
+    logger.info("Rebalanced assignment descriptions {}", rebalancingDescriptions);
 
     return rebalancingDescriptions;
   }
@@ -280,6 +292,11 @@ public class PartitionManager {
 
     public Set<Integer> getResignedPartitions() {
       return Collections.unmodifiableSet(resignedPartitions);
+    }
+
+    @Override
+    public String toString() {
+      return ToStringBuilder.reflectionToString(this);
     }
   }
 }
