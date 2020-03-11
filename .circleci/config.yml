@@ -9,7 +9,7 @@ jobs:
           keys:
             - eventuate-common-messaging-{{ checksum "gradle.properties" }}
             - eventuate-common-messaging-
-      - run: TERM=dumb ./gradlew testClasses
+      - run: TERM=dumb ./gradlew testClasses aggregateJavaDocs
       - save_cache:
           paths:
             - ~/.gradle
