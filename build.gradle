@@ -1,9 +1,12 @@
 buildscript {
     repositories {
         jcenter()
+        maven { url "https://snapshots.repositories.eventuate.io/repository" }
     }
     dependencies {
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+        classpath "io.eventuate.plugins.gradle:eventuate-plugins-gradle-versions:$eventuatePluginsGradleVersion"
+        classpath "io.eventuate.plugins.gradle:eventuate-plugins-gradle-publish:$eventuatePluginsGradleVersion"
     }
 }
 
@@ -12,26 +15,10 @@ allprojects {
 }
 
 subprojects {
-    apply plugin: 'java'
-    apply plugin: 'maven'
-    apply plugin: 'com.jfrog.bintray'
+    apply plugin: "io.eventuate.plugins.gradle.publish.EventuatePublish"
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
-
-    bintray {
-        publish = true
-        user = System.getenv('BINTRAY_USER')
-        key = System.getenv('BINTRAY_KEY')
-        configurations = ['archives']
-        pkg {
-            repo = "eventuate-maven-$bintrayRepoType"
-            name = 'eventuate-common-messaging'
-            licenses = ['Apache-2.0']
-            vcsUrl = 'https://github.com/eventuate-foundation/eventuate-common-messaging'
-        }
-    }
-
 
     repositories {
         mavenCentral()
@@ -42,23 +29,6 @@ subprojects {
 
     dependencies {
         testCompile "junit:junit:4.12"
-    }
-
-    uploadArchives {
-        repositories {
-            mavenDeployer {
-                repository(url: deployUrl)
-                pom.project {
-                    licenses {
-                        license {
-                            name 'The Apache Software License, Version 2.0'
-                            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                            distribution 'repo'
-                        }
-                    }
-                }
-            }
-        }
     }
 }
 
