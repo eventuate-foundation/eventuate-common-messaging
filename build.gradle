@@ -15,8 +15,10 @@ allprojects {
     group = "io.eventuate.common.messaging"
 }
 
-subprojects {
-    apply plugin: "io.eventuate.plugins.gradle.publish.EventuatePublish"
+
+apply plugin: "io.eventuate.plugins.gradle.publish.EventuatePublish"
+
+allprojects {
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
