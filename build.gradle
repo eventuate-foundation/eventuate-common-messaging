@@ -1,6 +1,7 @@
 buildscript {
     repositories {
         jcenter()
+        maven { url "https://dl.bintray.com/eventuateio-oss/eventuate-maven-release" }
         maven { url "https://snapshots.repositories.eventuate.io/repository" }
     }
     dependencies {
