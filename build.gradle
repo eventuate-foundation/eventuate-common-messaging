@@ -1,11 +1,11 @@
 buildscript {
     repositories {
         jcenter()
+        eventuateMavenRepoUrl.split(',').each { repoUrl -> maven { url repoUrl } }
         maven { url "https://dl.bintray.com/eventuateio-oss/eventuate-maven-release" }
         maven { url "https://snapshots.repositories.eventuate.io/repository" }
     }
     dependencies {
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
         classpath "io.eventuate.plugins.gradle:eventuate-plugins-gradle-versions:$eventuatePluginsGradleVersion"
         classpath "io.eventuate.plugins.gradle:eventuate-plugins-gradle-publish:$eventuatePluginsGradleVersion"
     }
@@ -36,19 +36,13 @@ allprojects {
 }
 
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.4'
-}
 
 
 gradle.projectsEvaluated {
     task aggregateJavaDocs(type: Javadoc) {
         description = 'Aggregated Javadoc API documentation of all subprojects.'
         group = JavaBasePlugin.DOCUMENTATION_GROUP
-        dependsOn subprojects.findAll { subproject -> subproject.plugins.hasPlugin(PublicModulePlugin) }.javadoc
 
-        source subprojects.findAll { subproject -> subproject.plugins.hasPlugin(PublicModulePlugin) }.javadoc.source
         destinationDir file("$buildDir/docs/javadoc")
-        classpath = files(subprojects.findAll { subproject -> subproject.plugins.hasPlugin(PublicModulePlugin) }.javadoc.classpath)
     }
 }
