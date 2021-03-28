@@ -1,5 +1,6 @@
 buildscript {
     repositories {
+        mavenCentral()
         jcenter()
         eventuateMavenRepoUrl.split(',').each { repoUrl -> maven { url repoUrl } }
         maven { url "https://dl.bintray.com/eventuateio-oss/eventuate-maven-release" }
