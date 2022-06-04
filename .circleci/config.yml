@@ -1,39 +1,11 @@
-version: 2
-jobs:
-  build:
-    machine: true
-    working_directory: ~/eventuate-common-messaging
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - eventuate-common-messaging-{{ checksum "gradle.properties" }}
-            - eventuate-common-messaging-
-      - run: TERM=dumb ./gradlew testClasses aggregateJavaDocs
-      - save_cache:
-          paths:
-            - ~/.gradle
-          key: eventuate-common-messaging-{{ checksum "gradle.properties" }}
-      - run: TERM=dumb ./gradlew build
-      - run:
-          name: Publish artifacts
-          command: |
-            TERM=dumb ./deploy-artifacts.sh
-          when: on_success
-      - run:
-          name: Save test results
-          command: |
-            mkdir -p ~/junit/
-            find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} ~/junit/ \;
-          when: always
-      - store_test_results:
-          path: ~/junit
-      - store_artifacts:
-          path: ~/junit
+version: 2.1
+orbs:
+  eventuate-gradle-build-and-test: "eventuate_io/eventuate-gradle-build-and-test@0.1.0"
 workflows:
   version: 2
   build-test-and-deploy:
     jobs:
-      - build:
+      - eventuate-gradle-build-and-test/build-and-test:
+          script: ./.circleci/build-and-deploy.sh
           context:
             - publish
