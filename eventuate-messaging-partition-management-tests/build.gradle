@@ -1,8 +1,8 @@
 
 dependencies {
-    compile project (":eventuate-messaging-partition-management")
-    compile "io.eventuate.util:eventuate-util-test:$eventuateUtilVersion"
-    compile "junit:junit:4.12"
+    implementation project (":eventuate-messaging-partition-management")
+    implementation "io.eventuate.util:eventuate-util-test:$eventuateUtilVersion"
+    implementation "junit:junit:4.12"
 }
 
 

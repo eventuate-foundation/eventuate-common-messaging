@@ -1,6 +1,6 @@
 
 dependencies {
-    compile "io.eventuate.common:eventuate-common-coordination-leadership:$eventuateCommonVersion"
-    compile "commons-lang:commons-lang:2.6"
-    compile "org.slf4j:slf4j-api:1.7.18"
+    implementation "io.eventuate.common:eventuate-common-coordination-leadership:$eventuateCommonVersion"
+    implementation "commons-lang:commons-lang:2.6"
+    implementation "org.slf4j:slf4j-api:1.7.18"
 }
