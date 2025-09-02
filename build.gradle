@@ -38,7 +38,6 @@ allprojects {
     }
 
     dependencies {
-        testImplementation "junit:junit:4.12"
     }
 }
 
@@ -52,4 +51,7 @@ gradle.projectsEvaluated {
 
         destinationDir file("$buildDir/docs/javadoc")
     }
+}
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
 }

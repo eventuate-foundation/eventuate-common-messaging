@@ -2,9 +2,9 @@ package io.eventuate.messaging.partitionmanagement.tests;
 
 import io.eventuate.messaging.partitionmanagement.CommonMessageConsumer;
 import io.eventuate.util.test.async.Eventually;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -88,7 +88,7 @@ public abstract class AbstractMessagingTest {
   protected String destination;
   protected String subscriberId;
 
-  @Before
+  @BeforeEach
   public void init() {
     consumerIdCounter = new AtomicInteger(1);
     subscriptionIdCounter = new AtomicInteger(1);
@@ -251,9 +251,9 @@ public abstract class AbstractMessagingTest {
             EVENTUALLY_CONFIG.timeout,
             EVENTUALLY_CONFIG.timeUnit,
             () -> {
-              Assert.assertTrue("not all subscriptions have assigned partitions", subscriptions
+              Assertions.assertTrue(subscriptions
                       .stream()
-                      .noneMatch(testSubscription -> testSubscription.getCurrentPartitions().isEmpty()));
+                      .noneMatch(testSubscription -> testSubscription.getCurrentPartitions().isEmpty()), "not all subscriptions have assigned partitions");
 
               List<Integer> allPartitions = subscriptions
                       .stream()
@@ -263,8 +263,8 @@ public abstract class AbstractMessagingTest {
 
               Set<Integer> uniquePartitions = new HashSet<>(allPartitions);
 
-              Assert.assertEquals("partitions are not unique across subscriptions", allPartitions.size(), uniquePartitions.size());
-              Assert.assertEquals("actual partition count not equals to expected partition count", expectedPartitionCount, uniquePartitions.size());
+              Assertions.assertEquals(allPartitions.size(), uniquePartitions.size(), "partitions are not unique across subscriptions");
+              Assertions.assertEquals(expectedPartitionCount, uniquePartitions.size(), "actual partition count not equals to expected partition count");
             });
   }
 
@@ -291,15 +291,15 @@ public abstract class AbstractMessagingTest {
                       .filter(testSubscription -> testSubscription.getMessageQueue().isEmpty())
                       .collect(Collectors.toList());
 
-              Assert.assertTrue("Some subscriptions are empty", emptySubscriptions.isEmpty());
+              Assertions.assertTrue(emptySubscriptions.isEmpty(), "Some subscriptions are empty");
 
-              Assert.assertEquals("sent messages not equal to consumed messages",
-                      (long) messageCount,
+              Assertions.assertEquals((long) messageCount,
                       (long) testSubscriptions
                               .stream()
                               .map(testSubscription -> testSubscription.getMessageQueue().size())
                               .reduce((a, b) -> a + b)
-                              .orElse(0));
+                              .orElse(0),
+                      "sent messages not equal to consumed messages");
             });
   }
 

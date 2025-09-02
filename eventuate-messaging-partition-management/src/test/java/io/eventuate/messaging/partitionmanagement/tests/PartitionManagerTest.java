@@ -2,8 +2,8 @@ package io.eventuate.messaging.partitionmanagement.tests;
 
 import io.eventuate.messaging.partitionmanagement.Assignment;
 import io.eventuate.messaging.partitionmanagement.PartitionManager;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -112,11 +112,11 @@ public class PartitionManagerTest {
 
     assignments.values().forEach(assignment -> {
       Set<Integer> partitionOfCurrentAssignment = assignment.getPartitionAssignmentsByChannel().get(channel);
-      partitionOfCurrentAssignment.forEach(partition -> Assert.assertFalse(allPartitions.contains(partition)));
+      partitionOfCurrentAssignment.forEach(partition -> Assertions.assertFalse(allPartitions.contains(partition)));
       allPartitions.addAll(partitionOfCurrentAssignment);
     });
 
-    Assert.assertEquals(totalPartitions, allPartitions.size());
+    Assertions.assertEquals(totalPartitions, allPartitions.size());
   }
 
   private void assertThatEachAssignmentHasCorrectPartitionCount(Map<String, Assignment> assignments,
@@ -128,8 +128,8 @@ public class PartitionManagerTest {
     assignments.values().forEach(assignment -> {
       int partitions = assignment.getPartitionAssignmentsByChannel().get(channel).size();
 
-      Assert.assertTrue(partitions >= minPartitions);
-      Assert.assertTrue(partitions <= maxPartitions);
+      Assertions.assertTrue(partitions >= minPartitions);
+      Assertions.assertTrue(partitions <= maxPartitions);
     });
   }
 }

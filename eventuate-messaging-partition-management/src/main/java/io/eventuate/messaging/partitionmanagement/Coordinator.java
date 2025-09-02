@@ -61,7 +61,7 @@ public class Coordinator {
     assignmentListener = assignmentListenerFactory.create(subscriberId, subscriptionId, assignmentUpdatedCallback);
 
     leaderSelector = leaderSelectorFactory.create(lockId,
-            String.format("[subscriberId: %s, subscriptionId: %s]", subscriberId, subscriptionId),
+            "[subscriberId: %s, subscriptionId: %s]".formatted(subscriberId, subscriptionId),
             this::onLeaderSelected,
             this::onLeaderRemoved);
 
