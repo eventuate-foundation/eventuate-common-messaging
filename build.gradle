@@ -32,15 +32,20 @@ allprojects {
 
     repositories {
         mavenCentral()
-        jcenter()
         maven { url "https://repo.spring.io/milestone" }
         eventuateMavenRepoUrl.split(',').each { repoUrl -> maven { url repoUrl } }
     }
 
-    dependencies {
-    }
 }
 
+subprojects {
+
+    dependencies {
+        testImplementation "org.junit.jupiter:junit-jupiter:$junitVersion"
+        testRuntimeOnly "org.junit.platform:junit-platform-launcher:$junitPlatformLauncherVersion"
+    }
+
+}
 
 
 

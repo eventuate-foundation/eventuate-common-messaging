@@ -2,7 +2,9 @@
 dependencies {
     implementation project (":eventuate-messaging-partition-management")
     implementation "io.eventuate.util:eventuate-util-test:$eventuateUtilVersion"
+    implementation "org.junit.jupiter:junit-jupiter:5.13.4"
 }
+
 tasks.withType(Test).configureEach {
     useJUnitPlatform()
 }
